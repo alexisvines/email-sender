@@ -27,6 +27,7 @@ repositories {
     mavenCentral()
 }
 
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -36,4 +37,6 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-freemarker')
     testCompile("junit:junit")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+
 }

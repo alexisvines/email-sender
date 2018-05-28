@@ -1,5 +1,6 @@
 package emailsender;
 
+import emailsender.model.Mail;
 import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -14,6 +15,7 @@ import freemarker.template.Configuration;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ public class SimpleEmailController {
 
     @Autowired
     private Configuration freemarkerConfig;
+
 
 
     @RequestMapping("/sendsimpleemail")
@@ -71,6 +74,17 @@ public class SimpleEmailController {
         try {
             sendEmail5();
             return "Email Sent!";
+        } catch (Exception ex) {
+            return "Error in sending email: " + ex;
+        }
+    }
+
+    @RequestMapping("/simpleemail6")
+    @ResponseBody
+    String envio6() {
+        try {
+            sendEmail6();
+            return "Email enviado!";
         } catch (Exception ex) {
             return "Error in sending email: " + ex;
         }
@@ -140,22 +154,33 @@ public class SimpleEmailController {
      * @throws Exception
      */
     private void sendEmail5() throws Exception {
+
+
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    private void sendEmail6() throws Exception {
         MimeMessage message = sender.createMimeMessage();
 
-        MimeMessageHelper helper = new MimeMessageHelper(message);
+        MimeMessageHelper helper = new MimeMessageHelper(message,MimeMessageHelper.MULTIPART_MODE_MIXED,StandardCharsets.UTF_8.name());
 
         Map<String, Object> model = new HashMap<>();
-        model.put("user", "Alexis Sanchez");
+        model.put("usuario", "Alexis Sanchez");
+        model.put("nro_cancha", "Nº4");
+        model.put("valor_cancha","20.500");
 
         // set loading location to src/main/resources
         // You may want to use a subfolder such as /templates here
         freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/");
 
-        Template t = freemarkerConfig.getTemplate("welcome.ftl");
+        Template t = freemarkerConfig.getTemplate("venta.ftl");
         String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
-        helper.setTo("alexis.freire.leiva@gmail.com");
-        helper.setText(text, true); // set to html
+        helper.setTo("alexis.freire@procanchas.cl");
+        helper.setText(text,true); // set to html
         helper.setSubject("Hi");
 
         sender.send(message);
