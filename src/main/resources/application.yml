@@ -1,0 +1,18 @@
+# application.yml
+
+
+spring:
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: testingcanchas@gmail.com
+    password: Procanchas2018
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+    test-connection: false
