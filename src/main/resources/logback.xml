@@ -23,7 +23,7 @@
 
     <!-- Appender to log to file in a JSON format -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>${LOGSTASH_URL:-logstash:5000}</destination>
+        <destination>127.0.0.1:4560</destination>
         <keepAliveDuration>5 minutes</keepAliveDuration>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
@@ -37,8 +37,8 @@
                 <pattern>
                     <pattern>
                         {
-                        "appname": "${APPNAME:-ms-seed-rest}",
-                        "environment": "${ENVIRONMENT:-test}",
+                        "appname": "${APPNAME:-ms-email-sender}",
+                        "environment": "${ENVIRONMENT:-dev}",
                         "level": "%level",
                         "service": "${springAppName:-}",
                         "trace": "%X{X-B3-TraceId:-}",

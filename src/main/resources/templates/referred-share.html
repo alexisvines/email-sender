@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <title>proCanchas</title>
+	    <meta name="description" content="">
+	    <meta name="google" value="notranslate">
+	    <meta name="viewport" content="width=device-width">
+	    <meta property="og:type" content="product" />
+	  	<meta property="og:url"  th:content="@{|${baseFrontendUrl}/share/${referredCode}|}" />
+	    <meta property="og:title"  th:content="@{|${firstname} ${lastname} te invita a registrarte en PROCANCHAS.|}" />
+	    <meta property="og:description" content="Obtendrás un 10% de descuento en el primer arriendo de cada club!" />
+	    <meta property="og:image" th:content="@{|${baseFrontendUrl}/img/imagen-compartir-facebook-twitter.png|}" />
+	    <meta property="fb:app_id" content="287915878369961"/>
+	
+	</head>
+    <body>
+
+       <!--  <p>
+            Name <span th:text="|${firstname}|"></span> <span th:text="|${lastname}|"></span>
+            <br/>
+            Referred <span th:text="|${referredCode}|"> </span>
+        </p>-->
+        Redireccionando....
+    </body>
+    
+    <!-- FACEBOOK -->
+	<script>
+	 window.fbAsyncInit = function() {
+	   FB.init({
+	     appId            : '287915878369961',
+	     autoLogAppEvents : true,
+	     xfbml            : true,
+	     version          : 'v2.10'
+	   });
+	   FB.AppEvents.logPageView();
+	 };
+	
+	 (function(d, s, id){
+	    var js, fjs = d.getElementsByTagName(s)[0];
+	    if (d.getElementById(id)) {return;}
+	    js = d.createElement(s); js.id = id;
+	    js.src = "//connect.facebook.net/en_US/sdk.js";
+	    fjs.parentNode.insertBefore(js, fjs);
+	  }(document, 'script', 'facebook-jssdk'));
+	</script>	
+
+</html>
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+function getParameterByName( name ){
+    var regexS = "[\\?&]"+name+"=([^&#]*)", 
+  regex = new RegExp( regexS ),
+  results = regex.exec( window.location.search );
+  if( results == null ){
+    return "";
+  } else{
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+}
+
+</script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+</head>
+
+<div id="divForm" style="visibility: hidden">
+
+	<form id="formTbk" action='<%=url%>' method="post">
+		<input id="tbk_tokenid" type="hidden" name="TBK_TOKEN" value='<%=tbk_token%>'>
+		<input id="formButton" type="submit" value="">
+	</form>
+	<script language="javascript">
+	    document.getElementById("formTbk").action = getParameterByName("url");
+	    document.getElementById("tbk_tokenid").value=getParameterByName("tbk_token");
+		document.getElementById("formButton").click();
+	</script>
+</div>
+
+
+
