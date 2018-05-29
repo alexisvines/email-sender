@@ -176,7 +176,7 @@ public class SimpleEmailController {
         // You may want to use a subfolder such as /templates here
         freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/");
 
-        Template t = freemarkerConfig.getTemplate("venta.ftl");
+        Template t = freemarkerConfig.getTemplate("mail-procanchas-payment-voucher.ftl");
         String text = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
         helper.setTo("alexis.freire@procanchas.cl");
