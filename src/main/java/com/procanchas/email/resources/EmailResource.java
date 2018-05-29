@@ -1,16 +1,17 @@
-package emailsender;
+package com.procanchas.email.resources;
 
-import emailsender.model.Mail;
 import freemarker.template.Template;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import freemarker.template.Configuration;
+import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.mail.MessagingException;
@@ -19,8 +20,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
-public class SimpleEmailController {
+@Slf4j
+@RestController
+@RequestMapping(value = "/api/v1.0/email")
+public class EmailResource {
+
+    private static final String API_EMAIL = "/test";
+
 
     @Autowired
     private JavaMailSender sender;
@@ -29,59 +35,14 @@ public class SimpleEmailController {
     private Configuration freemarkerConfig;
 
 
-
-    @RequestMapping("/sendsimpleemail")
-    @ResponseBody
-    String sendSimpleEmail(){
-
-        try {
-            sendEmail();
-            return "Se envio email";
-        } catch (MessagingException e) {
-            return "Error al enviar email: "+e;
-
-        }
-    }
-
-    @RequestMapping("/sendsimpleemail2")
-    @ResponseBody
-    String sendMailWithAttachmen(){
-
-        try {
-            sendEmail2();
-            return "Se envio email";
-        } catch (MessagingException e) {
-            return "Error al enviar email: "+e;
-
-        }
-    }
-
-    @RequestMapping("/simpleemail3")
-    @ResponseBody
-    String sendMailWithInlineResources () {
-        try {
-            sendEmail3();
-            return "Email Sent!";
-        } catch (Exception ex) {
-            return "Error in sending email: " + ex;
-        }
-    }
-
-
-    @RequestMapping("/simpleemail5")
-    @ResponseBody
-    String home() {
-        try {
-            sendEmail5();
-            return "Email Sent!";
-        } catch (Exception ex) {
-            return "Error in sending email: " + ex;
-        }
-    }
-
-    @RequestMapping("/simpleemail6")
-    @ResponseBody
-    String envio6() {
+    /**
+     *
+     * @return
+     */
+    @RequestMapping(value = API_EMAIL,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET)
+    String envioCorreo() {
         try {
             sendEmail6();
             return "Email enviado!";

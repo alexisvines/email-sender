@@ -38,5 +38,6 @@ dependencies {
     testCompile("junit:junit")
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compileOnly 'org.projectlombok:lombok:1.16.20'
+    compile('net.logstash.logback:logstash-logback-encoder:5.1')
 
 }
