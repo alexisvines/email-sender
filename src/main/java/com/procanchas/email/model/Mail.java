@@ -14,5 +14,6 @@ public class Mail {
     private String subject;
     private String content;
     private String template;
+    private User user;
     private Map< String, Object > model;
 }
