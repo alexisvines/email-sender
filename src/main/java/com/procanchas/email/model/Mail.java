@@ -1,6 +1,6 @@
 package com.procanchas.email.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.Map;
 
@@ -8,12 +8,15 @@ import java.util.Map;
  * POJO que contiene los datos de un mail
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Mail {
-    private String from;
+    @NonNull
     private String to;
+    @NonNull
     private String subject;
-    private String content;
+    @NonNull
     private String template;
-    private User user;
     private Map< String, Object > model;
 }
