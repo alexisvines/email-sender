@@ -45,10 +45,10 @@ public class EmailResource {
             mail.setFrom("testcanchas@gmail.com");
             mail.setTo("alexis.freire@procanchas.cl");
             mail.setSubject("[Email de pruebas] canchas");
-            mail.setTemplate("welcome.ftl");
+            mail.setTemplate("mail-anulacion-turno.html");
 
             Map model = new HashMap();
-            model.put("user", "Alexis Freire");
+            model.put("clubName", "Futbol Soccer");
             mail.setModel(model);
 
         try {
