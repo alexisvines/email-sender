@@ -5,6 +5,8 @@ import com.procanchas.email.model.Mail;
 import com.procanchas.email.model.User;
 import com.procanchas.email.repository.ConfigurationRepository;
 import com.procanchas.email.services.EmailService;
+import com.procanchas.email.utils.TemplateUtils;
+import com.sun.mail.imap.protocol.MailboxInfo;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,9 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-
+/**
+ * Implementacion del servicio de envio de correo
+ */
 @Service
 @Slf4j
 public class EmailServiceImpl implements EmailService {
@@ -40,7 +44,10 @@ public class EmailServiceImpl implements EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
-        Template t = freemarkerConfig.getTemplate(mail.getTemplate());
+
+        // TODO: Obtener la plantilla desde bd
+
+        Template t = TemplateUtils.generateTemplate(templateString));
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail);
         helper.setTo(mail.getTo());
         helper.setText(html,true);

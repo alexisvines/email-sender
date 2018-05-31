@@ -39,7 +39,7 @@ public class EmailResource {
      *
      * @param emailTo
      * @param subject
-     * @param templateName
+     * @param templateId
      * @return
      */
     @RequestMapping(value = API_EMAIL,
@@ -47,18 +47,15 @@ public class EmailResource {
             method = RequestMethod.GET ,
             headers = "Accept=application/json")
     public ResponseEntity<?> sendAFreemarkerTemplateEmail(@RequestParam(value = "emailTo", required = true) String emailTo,
-                                                          @RequestParam(value = "subject", required = true) String subject,
-                                                          @RequestParam(value = "templateName", required = true) String templateName) {
+                                                          @RequestParam(value = "subject", required = false) String subject,
+                                                          @RequestParam(value = "templateId", required = true) Long templateId) {
 
         try {
             log.info("Inicio de envio de correo con un ejemplo de Freemarker HTML Template");
-            log.info("emailto:{}, subject:{}, templateName:{}",emailTo,subject,templateName);
-            validateInputs(emailTo,subject, templateName);
-            Mail mail = new Mail(emailTo,subject,templateName);
+            log.info("emailto:{}, subject:{}, templateName:{}",emailTo,subject,templateId);
+            validateInputs(emailTo, templateId);
 
-            Map model = new HashMap();
-            model.put("username", "Alexis Freire");
-            mail.setModel(model);
+            Mail mail = new Mail(emailTo,subject,templateId);
 
             _emailService.sendEmail(mail);
 
@@ -94,20 +91,17 @@ public class EmailResource {
     /**
      * Metodo que se encarga de realizar las validaciones de los datos de entrada
      * @param emailTo
-     * @param subject
-     * @param templateName
+     * @param idTemplate
      */
-    private void validateInputs(String emailTo, String subject, String templateName) throws Exception {
+    private void validateInputs(String emailTo, Long
+            idTemplate) throws Exception {
 
         if(emailTo == null || emailTo.isEmpty()){
             throw  new Exception("El campo emailTo es requerido");
         }
 
-        if(subject == null || subject.isEmpty()){
-            throw  new Exception("El campo subject es requerido");
-        }
 
-        if(templateName == null || templateName.isEmpty()){
+        if(idTemplate == null){
             throw  new Exception("El campo templateName es requerido");
 
         }

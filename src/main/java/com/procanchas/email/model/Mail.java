@@ -17,6 +17,6 @@ public class Mail {
     @NonNull
     private String subject;
     @NonNull
-    private String template;
+    private Long templateId;
     private Map< String, Object > model;
 }
