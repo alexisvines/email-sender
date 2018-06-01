@@ -1,10 +1,14 @@
 package com.procanchas.email.utils;
 
 import freemarker.template.Template;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  */
+@Slf4j
+@UtilityClass
 public class TemplateUtils {
 
     // Metodo que dado un string genera un template
@@ -20,5 +24,6 @@ public class TemplateUtils {
     public static String testStringTemplate(){
         return  "";
     }
+
 
 }

@@ -6,6 +6,7 @@ import com.procanchas.email.entity.EmailTemplateLabel;
 import com.procanchas.email.model.Mail;
 import com.procanchas.email.model.User;
 import com.procanchas.email.repository.ConfigurationRepository;
+import com.procanchas.email.repository.EmailTemplateLabelRepository;
 import com.procanchas.email.repository.EmailTemplateRepository;
 import com.procanchas.email.services.EmailService;
 import com.procanchas.email.utils.TemplateUtils;
@@ -40,11 +41,21 @@ public class EmailServiceImpl implements EmailService {
     private JavaMailSender emailSender;
 
     @Autowired
-    EmailTemplateRepository emailTemplateRepository;
+    private EmailTemplateRepository emailTemplateRepository;
+
+    @Autowired
+    private EmailTemplateLabelRepository emailTemplateLabelRepository;
 
     @Qualifier("freeMarkerConfiguration")
     @Autowired
     private Configuration freemarkerConfig;
+
+    /**
+     * Constantes
+     */
+    private static final String PAYMENT = "payment";
+    private static final String PAYMENT_URL = "paymentUrl";
+
 
 
     /**
@@ -57,7 +68,7 @@ public class EmailServiceImpl implements EmailService {
     @Async
     @Override
     public void sendEmail(Mail mail) throws MessagingException, IOException, TemplateException {
-        /*MimeMessage message = emailSender.createMimeMessage();
+        MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
@@ -68,17 +79,20 @@ public class EmailServiceImpl implements EmailService {
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail);
         helper.setTo(mail.getTo());
         helper.setText(html,true);
-        helper.setSubject(mail.getSubject());*/
+        helper.setSubject(mail.getSubject());
 
+        /* Persistir Padre
         EmailTemplate emailTemplate = new EmailTemplate();
         emailTemplate.setHtml("<html><head><body><h1> Let Down! : :)</h1></body></head></html>");
-        EmailTemplateLabel etl = new EmailTemplateLabel();
-        etl.setLabel("{user.email}");
-        emailTemplate.getEmailTemplateLabels().add(etl);
-        emailTemplate.setSubject("Alexis");
-        log.info("{}",emailTemplate);
-
+        emailTemplate.setSubject("{Email de prueba}");
         emailTemplateRepository.save(emailTemplate);
+
+        // Persistir  hijo
+        EmailTemplateLabel etl = new EmailTemplateLabel();
+        etl.setEmailTemplate(emailTemplate);
+        etl.setLabel("{user.email}");
+        emailTemplateLabelRepository.save(etl); */
+
 
 
         //emailSender.send(message);
