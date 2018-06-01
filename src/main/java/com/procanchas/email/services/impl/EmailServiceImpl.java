@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import freemarker.template.Configuration;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -27,6 +28,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * Implementacion del servicio de envio de correo
  */
+@EnableAsync
 @Service
 @Slf4j
 public class EmailServiceImpl implements EmailService {
@@ -38,6 +40,15 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private Configuration freemarkerConfig;
 
+
+    /**
+     *
+     * @param mail
+     * @throws MessagingException
+     * @throws IOException
+     * @throws TemplateException
+     */
+    @Async
     @Override
     public void sendEmail(Mail mail) throws MessagingException, IOException, TemplateException {
         MimeMessage message = emailSender.createMimeMessage();
@@ -47,7 +58,7 @@ public class EmailServiceImpl implements EmailService {
 
         // TODO: Obtener la plantilla desde bd
 
-        Template t = TemplateUtils.generateTemplate(templateString));
+        Template t = freemarkerConfig.getTemplate("mail-lanzamiento.html");
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail);
         helper.setTo(mail.getTo());
         helper.setText(html,true);

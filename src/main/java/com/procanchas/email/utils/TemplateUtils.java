@@ -8,9 +8,9 @@ import freemarker.template.Template;
 public class TemplateUtils {
 
     // Metodo que dado un string genera un template
-    public static Template generateTemplate(String templateHtml) {
+    public String generateTemplate(String templateHtml) {
 
-        return new Template();
+        return "";
     }
 
     /**
@@ -18,7 +18,7 @@ public class TemplateUtils {
      * @return
      */
     public static String testStringTemplate(){
-
+        return  "";
     }
 
 }
