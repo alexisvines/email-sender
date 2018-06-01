@@ -23,7 +23,7 @@ public class EmailTemplateLabel implements Serializable {
     @Column(name = "label")
     private String label;
 
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
+    @ManyToOne(optional=true, fetch=FetchType.EAGER)
     @JoinColumn(name = "id_email_template")
     private EmailTemplate emailTemplate;
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -26,8 +27,8 @@ public class EmailTemplate implements Serializable {
     @Column(name = "subject")
     private String subject;
 
-    @OneToMany(mappedBy = "emailTemplate" )
-    private Collection<EmailTemplateLabel> emailTemplateLabels;
+    @OneToMany(mappedBy = "emailTemplate",cascade = CascadeType.ALL )
+    private Set<EmailTemplateLabel> emailTemplateLabels = new HashSet<>();
 
 
 }

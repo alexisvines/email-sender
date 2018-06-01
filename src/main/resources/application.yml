@@ -1,6 +1,4 @@
-# application.yml
-
-
+# Configuracion de correo
 spring:
   mail:
     default-encoding: UTF-8
@@ -14,5 +12,10 @@ spring:
           auth: true
           starttls:
             enable: true
+            required: true
+            connectiontimeout: 5000
+            timeout: 5000
+            writetimeout: 5000
     protocol: smtp
     test-connection: false
+
