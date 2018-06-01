@@ -9,9 +9,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentDTO {
-
-    public class PaymentMailDTO implements Serializable {
+public class PaymentMailDTO implements Serializable {
 
         /**
          *

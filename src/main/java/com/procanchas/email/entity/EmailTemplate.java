@@ -22,6 +22,7 @@ public class EmailTemplate implements Serializable {
     private Long idEmailTemplate;
 
     @Column(name = "html")
+    @Lob
     private String html;
 
     @Column(name = "subject")

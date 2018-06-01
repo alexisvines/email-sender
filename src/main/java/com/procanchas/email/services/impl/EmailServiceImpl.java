@@ -9,11 +9,13 @@ import com.procanchas.email.repository.ConfigurationRepository;
 import com.procanchas.email.repository.EmailTemplateLabelRepository;
 import com.procanchas.email.repository.EmailTemplateRepository;
 import com.procanchas.email.services.EmailService;
+import com.procanchas.email.utils.MailCommonsUtils;
 import com.procanchas.email.utils.TemplateUtils;
 import com.sun.mail.imap.protocol.MailboxInfo;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,6 +28,7 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -73,13 +76,19 @@ public class EmailServiceImpl implements EmailService {
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
 
-        // TODO: Obtener la plantilla desde bd
+        // TODO: Obtener la plantilla desde bd cambiar el getHtmlText
+        // Se crea el archivo html
+        File file = MailCommonsUtils.getTemporalFile("mail",MailCommonsUtils.getHtmlMail());
 
-        Template t = freemarkerConfig.getTemplate("mail-lanzamiento.html");
+        // Se configura directorio temporal de acuerdo a donde se crea el archivo html del template
+        freemarkerConfig.setDirectoryForTemplateLoading(file.getParentFile());
+        Template t =  freemarkerConfig.getTemplate(file.getName());
+
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail);
         helper.setTo(mail.getTo());
         helper.setText(html,true);
         helper.setSubject(mail.getSubject());
+
 
         /* Persistir Padre
         EmailTemplate emailTemplate = new EmailTemplate();
@@ -91,12 +100,16 @@ public class EmailServiceImpl implements EmailService {
         EmailTemplateLabel etl = new EmailTemplateLabel();
         etl.setEmailTemplate(emailTemplate);
         etl.setLabel("{user.email}");
-        emailTemplateLabelRepository.save(etl); */
+        emailTemplateLabelRepository.save(etl);*/
+
+        //EmailTemplate emailTemplate = emailTemplateRepository.getOne(1L);
+         //log.info(""+emailTemplate);
 
 
 
-        //emailSender.send(message);
+        emailSender.send(message);
     }
+
 
 
 }

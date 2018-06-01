@@ -52,7 +52,7 @@ public class EmailResource {
 
         try {
             log.info("Inicio de envio de correo con un ejemplo de Freemarker HTML Template");
-            log.info("emailto:{}, subject:{}, templateName:{}",emailTo,subject,templateId);
+            log.info("emailTo:{}, subject:{}, templateName:{}",emailTo,subject,templateId);
             validateInputs(emailTo, templateId);
 
             Mail mail = new Mail(emailTo,subject,templateId);
